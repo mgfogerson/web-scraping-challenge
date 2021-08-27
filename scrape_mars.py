@@ -28,8 +28,8 @@ def scrape():
         image = soup.find('img', class_='headerimage fade-in')
         ftd_img=("https://spaceimages-mars.com/" + (image['src']))
 #scrape for Mars facts
-    mars_table = pd.read_html(pd_url)
-    mars_df = mars_table[1]
+    mars_table = pd.read_html(pd_url, header=0)
+    mars_df = mars_table[0]
     html_table = mars_df.to_html()
 #hemisphere images
     hemisphere_image_urls = [
@@ -46,7 +46,9 @@ def scrape():
         "hemi_urls": hemisphere_image_urls,
         "marstable": html_table
     }
+#quit browser
     browser.quit()
+    #return results
     return mars_data
 
 
